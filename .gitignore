@@ -1,0 +1,105 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+dist/
+build/
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+coverage.txt
+coverage.html
+
+# Go workspace file
+go.work
+
+# Dependency directories
+vendor/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+*.env
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.iml
+
+# Logs
+*.log
+logs/
+log/
+
+# Database files (if running local SQLite for testing)
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Air (live reload tool) temporary files
+tmp/
+
+# Debug files
+__debug_bin
+debug
+
+# OS generated files
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Docker volumes (if any)
+docker-data/
+postgres_data/
+
+# Build artifacts
+main
+trade-api
+*.out
+
+# Go sum backup
+go.sum.bak
+
+# Test cache
+.cache/
+
+# Coverage
+coverage/
+*.cover
+
+# Profiling
+*.prof
+*.pprof
+
+# Compiled Object files
+*.o
+*.a
+
+# Archives
+*.tar
+*.tar.gz
+*.zip
+
+# CI/CD
+.github/workflows/*.log
+
+# Configuration backups
+*.bak
+*.backup
