@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   postgres:
-    image: postgres:16-alpine
+    image: postgres:16.0-alpine
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -17,20 +17,48 @@ services:
 
   api:
     build: .
-    ports:
-      - "3009:3009"
     environment:
-      PORT: 3009
+      PORT: 3000
       DB_HOST: postgres
       DB_PORT: 5432
       DB_USER: postgres
       DB_PASSWORD: postgres
       DB_NAME: manafeth
       DB_SSLMODE: disable
+      VIRTUAL_PORT: 3000
+      VIRTUAL_HOST: manafeth-api.orki.ai
+      LETSENCRYPT_HOST: manafeth-api.orki.ai
     depends_on:
       postgres:
         condition: service_healthy
     restart: unless-stopped
 
+  nginx:
+    image: nginxproxy/nginx-proxy
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - '/var/run/docker.sock:/tmp/docker.sock:ro'
+      - 'vhost:/etc/nginx/vhost.d'
+      - 'html:/usr/share/nginx/html'
+      - 'certs:/etc/nginx/certs'
+
+  acme:
+    image: nginxproxy/acme-companion
+    restart: always
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - 'acme:/etc/acme.sh'
+    environment:
+      DEFAULT_EMAIL: ahmed.alkindi@orki.ai
+    volumes_from:
+      - 'nginx'
+
 volumes:
   postgres_data:
+  vhost:
+  html:
+  certs:
+  acme:
